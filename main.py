@@ -1,8 +1,8 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 
-import tabula
-import matplotlib.pyplot as plt
-from data import read_clean
+import data
+
 
 def plot_data(df):
     # fig, ax = plt.subplots(nrows=2)
@@ -14,28 +14,30 @@ def plot_data(df):
     C
     """
 
-    fig = plt.figure(layout="constrained", figsize=(15,10))
+    fig = plt.figure(layout="constrained", figsize=(15, 10))
     ax_dict = fig.subplot_mosaic(mosaic)
-    ax_dict['A'].plot(df['date'], df['amount'])
-    ax_dict['B'].plot(df['date'], df['balance'])
-    ax_dict['C'].hist(df['amount'],bins=100)
+    ax_dict["A"].plot(df["date"], df["amount"])
+    ax_dict["B"].plot(df["date"], df["balance"])
+    ax_dict["C"].hist(df["amount"], bins=100)
     return fig, ax_dict
 
 
 def statsmeup(df):
-    print("foo")
+    print(df.describe())
+
 
 def main():
-    filename = "eksport-1"
-    #process_data(filename=filename)
+    filename = "eksport_small"
+    # process_data(filename=filename)
 
-    df = read_clean(filename)
+    df = data.read_clean(filename)
     statsmeup(df)
-    #plot_data(df)
-    #plt.show()
+    df2 = data.attach_categories(df)
+    print("foo")
+    plot_data(df)
+    plt.show()
 
-if __name__ == '__main__':
-    
+
+if __name__ == "__main__":
+
     main()
-
-    
